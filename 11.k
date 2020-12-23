@@ -4,7 +4,7 @@ input: 0:`11.txt
 
 ROWS:#input; COLS:#*input; CELLCOUNT:ROWS*COLS
 chairs: (^+!(ROWS;COLS)) @ c:&"L"=,/input
-offsets:(,0 0)_+-1+!3 3
+offsets:1_,/{x,/:\:x}0 -1 1
 OOB: {$[&/x within' ((0;ROWS);(0;COLS)); COLS/x; CELLCOUNT]}
 / slower, but maybe more vectorisable: OOB: {$[chairs'x; COLS/x; CELLCOUNT]}
 EMPTY: CELLCOUNT#0b
@@ -33,7 +33,7 @@ input: 0:`11.txt
 
 ROWS:#input; COLS:#*input; MAX:ROWS*COLS
 chairs: (^+!(ROWS;COLS)) @ c:&"L"=,/input
-offsets:(,0 0)_,/{x,/:\:x}@-1 0 1
+offsets:1_,/{x,/:\:x}0 -1 1
 OOB: {$[&/x within' ((0;ROWS);(0;COLS)); COLS/x; MAX]}
 
 / Part 1
@@ -54,7 +54,7 @@ next:{@[x&0b; c*{(x&5>y)|~x|y}[x@c; +/'x@adj]; 1b]}
 / initial attempt below wasn't flat enough... = slow
 
 input: 0:`11.txt
-offsets:(,0 0)_,/{x,/:\:x}@-1 0 1
+offsets:1_,/{x,/:\:x}0 -1 1
 chairs: (^+!2##input)@&"L"=,/input
 occupied: chairs!0
 adjacent: chairs+/:\:offsets
